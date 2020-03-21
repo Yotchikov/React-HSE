@@ -1,0 +1,81 @@
+$main-accent: #24305e;
+
+html {
+  background-color: #ececec;
+}
+
+.tasks {
+  flex: 1;
+  padding: 1rem;
+
+  h1 {
+    margin-left: 1rem;
+    color: $main-accent;
+  }
+
+  .task-list {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-left: -1rem;
+    margin-right: -1rem;
+
+    div {
+      border-radius: 6px;
+      flex: 1;
+      background-color: white;
+      margin: 1rem;
+      padding-left: 1rem;
+      flex: 1;
+      min-width: 250px;
+      max-width: 250px;
+      box-shadow: 0px 3px 5px #d8d8d8;
+    }
+  }
+}
+
+.buttons {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+
+  button {
+    width: 150px;
+    height: 150px;
+    margin: 1rem;
+    cursor: pointer;
+    background-color: white;
+    font-size: 1rem;
+    border: 1px solid $main-accent;
+    border-radius: 50%;
+    transition: 0.3s;
+    color: $main-accent;
+    
+    &:hover {
+        background-color: $main-accent;
+        color: white;
+        &::placeholder {
+          color: white;
+        }
+      }
+      &:focus {
+        outline: none;
+        background-color: $main-accent;
+        color: white;
+        &::placeholder {
+          color: white;
+        }
+      }
+
+    &:disabled {
+      cursor: auto;
+      background-color: transparent;
+      border: 1px solid grey;
+      color: grey;
+      &:hover {
+        background-color: transparent;
+        color: grey;
+      }
+    }
+  }
+}

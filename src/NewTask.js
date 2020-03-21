@@ -1,4 +1,8 @@
 import React from 'react';
+import styles from './NewTask.module.scss';
+import classnames from 'classnames/bind';
+
+const cx = classnames.bind(styles);
 
 class NewTask extends React.Component {
   state = {
@@ -6,11 +10,15 @@ class NewTask extends React.Component {
     name: '',
     description: '',
     priority: ''
-  }
+  };
 
   submit = () => {
-    this.props.handleSubmit(this.state.name, this.state.description, this.state.priority);
-  }
+    this.props.handleSubmit(
+      this.state.name,
+      this.state.description,
+      this.state.priority
+    );
+  };
 
   handleOnChange = event => {
     const valueName = event.target.name;
@@ -18,24 +26,45 @@ class NewTask extends React.Component {
     this.setState(state => {
       const newState = state;
       newState[valueName] = newValue;
-      const validateForm = newState.name !== '' && newState.description !== '' && newState.priority !== '';
-      return { buttonDisabled: validateForm, [valueName]: newValue }
+      const validateForm =
+        newState.name !== '' &&
+        newState.description !== '' &&
+        newState.priority !== '';
+      return { buttonDisabled: validateForm, [valueName]: newValue };
     });
-  }
+  };
 
   render() {
     return (
-      <div className="form-row m-3">
-        <div className="col">
-          <input type="text" className="form-control" name="name" onChange={this.handleOnChange} placeholder="Имя" />
-        </div>
-        <div className="col">
-          <input type="text" className="form-control" name="description" onChange={this.handleOnChange} placeholder="Описание" />
-        </div>
-        <div className="col">
-          <input type="number" className="form-control" name="priority" onChange={this.handleOnChange} placeholder="Приоритет" />
-        </div>
-        <button className="btn btn-primary" onClick={this.submit} disabled={!this.state.buttonDisabled}>Добавить задачу</button>
+      <div className={cx('form')}>
+        <input
+          type="text"
+          name="name"
+          className={cx('el')}
+          onChange={this.handleOnChange}
+          placeholder="Исполнитель"
+        />
+        <input
+          type="text"
+          name="description"
+          className={cx('el')}
+          onChange={this.handleOnChange}
+          placeholder="Краткое описание"
+        />
+        <input
+          type="number"
+          name="priority"
+          className={cx('el')}
+          onChange={this.handleOnChange}
+          placeholder="Приоритет"
+        />
+        <button
+          className={cx('el')}
+          onClick={this.submit}
+          disabled={!this.state.buttonDisabled}
+        >
+          Добавить
+        </button>
       </div>
     );
   }

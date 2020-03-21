@@ -1,70 +1,63 @@
 import React from 'react';
-import Task from './Task.js'
-import NewTask from './NewTask.js'
-import './App.css';
+import Task from './Task.js';
+import NewTask from './NewTask.js';
+import styles from './App.module.scss';
+import classnames from 'classnames/bind';
+import { addTodo, sortTodos } from './actions/index.js';
+import { connect } from 'react-redux';
+
+const cx = classnames.bind(styles);
+
+const mapStateToProps = state => ({
+  todos: state
+});
+
+const mapDispatchToProps = dispatch => ({
+  addTodo: (name, description, priority) =>
+    dispatch(addTodo(name, description, priority)),
+  sortTodos: param => dispatch(sortTodos(param))
+});
 
 class App extends React.Component {
-  state = {
-    idCounter: 0,
-    tasks: []
-  }
-
-  handleSubmit = (name, description, priority) => {
-    this.setState(state => {
-      let newTasks = state.tasks;
-      newTasks.push({ id: ++state.idCounter, name: name, description: description, priority: priority });
-      return { tasks: newTasks };
-    });
-  }
-
-  sortByName = () => {
-    console.log('Sorting by name');
-    this.setState(state => {
-      let newTasks = state.tasks;
-      newTasks.sort((a, b) => {
-        var nameA = a.name.toUpperCase();
-        var nameB = b.name.toUpperCase();
-        if (nameA < nameB) {
-          return -1;
-        }
-        if (nameA > nameB) {
-          return 1;
-        }
-        return 0;
-      });
-      return { tasks: newTasks };
-    });
-  }
-
-  sortByPriority = () => {
-    console.log('Sorting by priority');
-    this.setState(state => {
-      let newTasks = state.tasks;
-      newTasks.sort((a, b) => {
-        return a.priority - b.priority;
-      });
-      return { tasks: newTasks };
-    });
-  }
-
   render() {
-    const listTasks = this.state.tasks.length > 0 ? this.state.tasks.map((task) =>
-      <Task
-        key={task.id}
-        id={task.id}
-        name={task.name}
-        description={task.description}
-        priority={task.priority} />) : <h1>Задач пока нет!</h1>;
+    const listTasks =
+      this.props.todos.length > 0 ? (
+        this.props.todos.map(task => (
+          <Task
+            key={task.id}
+            id={task.id}
+            name={task.name}
+            description={task.description}
+            priority={task.priority}
+          />
+        ))
+      ) : (
+        <h1>У вас нет ни одной задачи</h1>
+      );
 
     return (
-      <div className="main" >
-        <NewTask handleSubmit={this.handleSubmit} />
-        <button className="btn btn-primary btn-block" onClick={this.sortByName}>Отсортировать по имени</button>
-        <button className="btn btn-primary btn-block" onClick={this.sortByPriority}>Отсортировать по приоритету</button>
-        <div className="mt-3">{listTasks}</div>
+      <div className={cx('container')}>
+        <div className={cx('tasks')}>
+          <NewTask handleSubmit={this.props.addTodo} />
+          <div className={cx('task-list')}>{listTasks}</div>
+        </div>
+        <div className={cx('buttons')}>
+          <button
+            onClick={() => this.props.sortTodos('byName')}
+            disabled={this.props.todos.length == 0}
+          >
+            Отсортировать по имени
+          </button>
+          <button
+            onClick={() => this.props.sortTodos('byPriority')}
+            disabled={this.props.todos.length == 0}
+          >
+            Отсортировать по приоритету
+          </button>
+        </div>
       </div>
     );
   }
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
