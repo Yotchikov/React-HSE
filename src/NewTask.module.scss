@@ -1,0 +1,55 @@
+$main-accent: #24305e;
+
+.form {
+  display: flex;
+  justify-content: flex-start;
+
+  .el {
+    background-color: white;
+    font-size: 1.3rem;
+    border: 1px solid $main-accent;
+    border-radius: 6px;
+    transition: 0.3s;
+    color: $main-accent;
+
+    &::placeholder {
+      color: $main-accent;
+    }
+    &:hover {
+      background-color: $main-accent;
+      color: white;
+      &::placeholder {
+        color: white;
+      }
+    }
+    &:focus {
+      outline: none;
+      background-color: $main-accent;
+      color: white;
+      &::placeholder {
+        color: white;
+      }
+    }
+  }
+
+  input {
+    flex: 1;
+    padding: 1rem;
+    margin-right: 1rem;
+  }
+
+  button {
+    cursor: pointer;
+    
+    &:disabled {
+      cursor: auto;
+      background-color: transparent;
+      border: 1px solid grey;
+      color: grey;
+      &:hover {
+        background-color: transparent;
+        color: grey;
+      }
+    }
+  }
+}
