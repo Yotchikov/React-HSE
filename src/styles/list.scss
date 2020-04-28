@@ -1,0 +1,67 @@
+@import './variables.scss';
+
+table {
+  font-size: 1.2rem;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+thead {
+  background-color: $dark-blue;
+  color: white;
+  th {
+    padding: 0.75rem;
+  }
+}
+
+tbody {
+  tr {
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+    td a,
+    th a {
+      color: black;
+      padding: 0.75rem;
+      display: block;
+      height: 100%;
+      text-decoration: none;
+
+      &:visited {
+        color: black;
+      }
+    }
+
+    &:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  }
+
+  th {
+    width: 10rem;
+  }
+}
+
+.projects tbody tr:hover {
+  background-color: #e2e2e2;
+}
+
+.todos tbody tr td,
+.todos tbody tr th {
+  padding: 0.75rem;
+}
+
+.clickable {
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    color: grey;
+  }
+}
+
+.empty-message {
+  margin: 1.5rem;
+  text-align: center;
+  font-style: italic;
+  color: grey;
+}

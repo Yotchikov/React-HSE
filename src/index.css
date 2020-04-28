@@ -1,11 +1,6 @@
-body {
+#root, body, html {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f0f4ef;
   margin: 0;
-  font-family: 'Montserrat';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  height: 100%;
 }
